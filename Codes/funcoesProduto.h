@@ -5,5 +5,7 @@
 
 Produto* criarProduto(Produto *lista_de_produtos);
 void listarProdutos(Produto *lista_de_produtos);
+void editarProduto(Produto *lista_de_produtos, int codigo);
+Produto* removerProduto(Produto *lista_de_produtos, int codigo);
 
 #endif

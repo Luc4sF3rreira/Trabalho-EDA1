@@ -48,3 +48,50 @@ void listarProdutos(Produto *lista_de_produtos) {
     }
 }
 
+void editarProduto(Produto *lista_de_produtos, int codigo) {
+    Produto *p = buscarProduto(lista_de_produtos, codigo);
+
+    if (p == NULL) {
+        printf("Produto nao encontrado.\n");
+        return;
+    }
+
+    printf("Novo nome: ");
+    scanf(" %[^\n]", p->nome);
+
+    printf("Novo preco: ");
+    scanf("%f", &p->preco);
+
+    printf("Nova quantidade: ");
+    scanf("%d", &p->qtd);
+
+    printf("Produto atualizado!\n");
+}
+
+Produto* removerProduto(Produto *lista_de_produtos, int codigo) {
+    Produto *atual = lista_de_produtos;
+    Produto *anterior = NULL;
+
+    while (atual != NULL && atual->codigo != codigo) {
+        anterior = atual;
+        atual = atual->prox;
+    }
+
+    if (atual == NULL) {
+        printf("Produto nao encontrado.\n");
+        return lista_de_produtos;
+    }
+
+    if (anterior == NULL) {
+        lista_de_produtos = atual->prox;  
+    } else {
+        anterior->prox = atual->prox;
+    }
+
+    free(atual);
+    printf("Produto removido!\n");
+
+    return lista_de_produtos;
+}
+
+

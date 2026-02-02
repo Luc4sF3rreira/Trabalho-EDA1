@@ -4,32 +4,76 @@
 #include <ctype.h>
 #include "funcoesProduto.h"
 
-//Não tenho certeza se coloco o ponteiro assim ou se uso ponteiro de ponteiro
-Produto* criarProduto(Produto *lista_de_produtos) {
-    Produto *novo = (Produto*) malloc(sizeof(Produto));
+void limparBuffer() { //Tira o \n que sobrou no buffer após um scanf
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
 
-    if (novo == NULL) {
-        printf("Erro de alocacao!\n");
-        return lista_de_produtos;
+int validarCodigo(int *codigo, Produto *lista_de_produtos) {
+    if (codigo <= 0) {
+        printf("Codigo invalido. Deve ser um numero positivo.\n\n");
+        return 0;
     }
+    for (Produto *p = lista_de_produtos; p != NULL; p = p->prox) {
+        if (p->codigo == *codigo) {
+            printf("Codigo ja existe. Escolha outro codigo.\n\n");
+            return 0;
+        }
+    }
+    for (int i = 0; i < strlen(codigo); i++) { //Verifica se todos os caracteres são números
+        if (!isdigit(codigo[i])) {
+            printf("Codigo deve conter apenas numeros.\n\n");
+            return 0; 
+        }
+    }
+    return 1;
+}
+
+int validarNome(char *nome_produto) {
+    if (strlen(nome_produto) > 100) { //Verifica se o nome tem no máximo 100 caracteres
+        printf("Nome muito longo.\n\n");
+        return 0; 
+    }
+    for (int i = 0; i < strlen(nome_produto); i++) { //Verifica se todos os caracteres são letras
+        if (!isalpha(nome_produto[i]) && nome_produto[i] != ' ') {
+            printf("Nome deve conter apenas letras e espacos.\n\n");
+            return 0; } 
+    }
+    return 1;
+}
+
+Produto* criarProduto(Produto *lista_de_produtos) {
+    Produto *novo = (Produto*) calloc(1, sizeof(Produto));
 
     printf("Codigo: ");
     scanf("%d", &novo->codigo);
+    limparBuffer();
 
     printf("Nome: ");
-    scanf(" %[^\n]", novo->nome);
+    scanf(" %99[^\n]", novo->nome_produto);
+    limparBuffer();
 
     printf("Preco: ");
     scanf("%f", &novo->preco);
+    limparBuffer();
 
     printf("Quantidade: ");
     scanf("%d", &novo->qtd);
+    limparBuffer();
 
     novo->prox = lista_de_produtos;   
     lista_de_produtos = novo;         
 
     return lista_de_produtos;
 }
+
+Produto* buscarProduto(Produto *lista_de_produtos, int codigo) {
+    while (lista_de_produtos != NULL) {
+        if (lista_de_produtos->codigo == codigo) return lista_de_produtos; //Retorna o produto encontrado
+        lista_de_produtos = lista_de_produtos->prox;
+    }
+    return NULL;
+} 
 
 void listarProdutos(Produto *lista_de_produtos) {
     Produto *aux = lista_de_produtos;
@@ -38,12 +82,10 @@ void listarProdutos(Produto *lista_de_produtos) {
         printf("Nenhum produto cadastrado.\n");
         return;
     }
-
+    printf("\n--- Lista de Produtos ---\n");
     while (aux != NULL) {
-        printf("\nCodigo: %d", aux->codigo);
-        printf("\nNome: %s", aux->nome);
-        printf("\nPreco: %.2f", aux->preco);
-        printf("\nQuantidade: %d\n", aux->qtd);
+        printf("Codigo: %d || Nome: %s || Preco: %.2f || Quantidade: %d\n",
+               aux->codigo, aux->nome_produto, aux->preco, aux->qtd);
         aux = aux->prox;
     }
 }
@@ -57,13 +99,16 @@ void editarProduto(Produto *lista_de_produtos, int codigo) {
     }
 
     printf("Novo nome: ");
-    scanf(" %[^\n]", p->nome);
+    scanf(" %99[^\n]", p->nome_produto);
+    limparBuffer();
 
     printf("Novo preco: ");
     scanf("%f", &p->preco);
+    limparBuffer();
 
     printf("Nova quantidade: ");
     scanf("%d", &p->qtd);
+    limparBuffer();
 
     printf("Produto atualizado!\n");
 }

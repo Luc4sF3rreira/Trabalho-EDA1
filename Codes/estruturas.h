@@ -11,7 +11,7 @@ typedef struct itemCarrinho {
 
 typedef struct cliente {
     char CPF[12];
-    char nome[100];
+    char nome_cliente[100];
     char email[100];
     char telefone[15];
     char data_nascimento[12];
@@ -21,7 +21,7 @@ typedef struct cliente {
 
 typedef struct produto {
     int codigo;
-    char nome[50];
+    char nome_produto[100];
     float preco;
     int qtd;
     struct produto *prox; //Ponteiro para o próximo produto na lista

@@ -16,17 +16,23 @@ int validarCPF(char *CPF) {
     for (int i = 0; i < 11; i++) { //Verifica se todos os caracteres são números
         if (!isdigit(CPF[i])) {
             printf("CPF deve conter apenas numeros.\n\n");
-            return 0; }
+            return 0; 
+        }
     }
     return 1;
 }
 
-int validarNome(char *nome) {
-    if (strlen(nome) < 3) { //Verifica se o nome tem pelo menos 3 caracteres
+int validarNome(char *nome_cliente) {
+    if (strlen(nome_cliente) < 3) { //Verifica se o nome tem pelo menos 3 caracteres
         printf("Nome muito curto.\n\n");
-        return 0; }
-    for (int i = 0; i < strlen(nome); i++) { //Verifica se todos os caracteres são letras
-        if (!isalpha(nome[i]) && nome[i] != ' ') {
+        return 0; 
+    }
+    if (strlen(nome_cliente) > 100) { //Verifica se o nome tem no máximo 100 caracteres
+        printf("Nome muito longo.\n\n");
+        return 0; 
+    }
+    for (int i = 0; i < strlen(nome_cliente); i++) { //Verifica se todos os caracteres são letras
+        if (!isalpha(nome_cliente[i]) && nome_cliente[i] != ' ') {
             printf("Nome deve conter apenas letras e espacos.\n\n");
             return 0; } 
     }
@@ -110,7 +116,7 @@ int validarDataNascimento(char *data_nascimento) { //Verifica se a data de nasci
     return 1;
 }
 
-void cadastrar_cliente(Cliente **lista_clientes) {
+Cliente* cadastrar_cliente(Cliente *lista_clientes) {
     Cliente *novo = (Cliente*) calloc(1, sizeof(Cliente));
 
     //Solicita e valida o CPF
@@ -123,13 +129,13 @@ void cadastrar_cliente(Cliente **lista_clientes) {
         else printf("Digite o CPF novamente: "); 
     }
 
-    //Solicita o nome
+    //Solicita e valida o nome
     printf("Digite o nome: ");
     while(1) {
-        scanf(" %99[^\n]", novo->nome);
+        scanf(" %99[^\n]", novo->nome_cliente);
         limparBuffer();        
 
-        if (validarNome(novo->nome)) break; //Sai do loop se o nome for válido
+        if (validarNome(novo->nome_cliente)) break; //Sai do loop se o nome for válido
         else printf("Digite o nome novamente: ");
     }
 
@@ -163,10 +169,11 @@ void cadastrar_cliente(Cliente **lista_clientes) {
         else printf("Digite a data de nascimento novamente: "); 
     }
 
-    novo->prox = *lista_clientes; //O novo aponta para o início da lista
-    *lista_clientes = novo; //A lista agora começa com o novo cliente
+    novo->prox = lista_clientes; //O novo aponta para o início da lista
     
     printf("Cliente cadastrado com sucesso!\n");
+
+    return novo; //Retorna o novo início da lista
 }
 
 void listar_clientes (Cliente *lista_clientes) {
@@ -177,7 +184,7 @@ void listar_clientes (Cliente *lista_clientes) {
     printf("\n--- Lista de Clientes ---\n");
     while (lista_clientes != NULL) {
         printf("CPF: %s || Nome: %s || Email: %s || Telefone: %s || Data de Nascimento: %s\n",
-               lista_clientes->CPF, lista_clientes->nome, lista_clientes->email, 
+               lista_clientes->CPF, lista_clientes->nome_cliente, lista_clientes->email, 
                lista_clientes->telefone, lista_clientes->data_nascimento);
 
         lista_clientes = lista_clientes->prox;
@@ -215,7 +222,7 @@ void editar_cliente (Cliente *lista_clientes) {
             printf("Digite o CPF novamente: ");
         }
     }
-    printf("\nCliente encontrado: %s\n", cliente->nome);
+    printf("\nCliente encontrado: %s\n", cliente->nome_cliente);
     printf("Escolha o campo para editar:\n");
     printf("1. CPF\n2. Nome\n3. Email\n4. Telefone\n5. Data de Nascimento\n");
 
@@ -236,13 +243,13 @@ void editar_cliente (Cliente *lista_clientes) {
             break;
                     
         case 2:
-            printf("Nome atual: %s\n", cliente->nome);
+            printf("Nome atual: %s\n", cliente->nome_cliente);
             printf("Digite novo nome: ");
             while(1) {
-                scanf(" %99[^\n]", cliente->nome);
+                scanf(" %99[^\n]", cliente->nome_cliente);
                 limparBuffer();        
 
-                if (validarNome(cliente->nome)) break; //Sai do loop se o nome for válido
+                if (validarNome(cliente->nome_cliente)) break; //Sai do loop se o nome for válido
                 else printf("Digite o nome novamente: ");
             }
             break;
@@ -285,7 +292,7 @@ void editar_cliente (Cliente *lista_clientes) {
     }
 }
 
-void remover_cliente(Cliente **lista_clientes) {
+Cliente* remover_cliente(Cliente *lista_clientes) {
     char CPF[12];
     printf("Informe o CPF do cliente a ser removido: ");
     while(1) {
@@ -296,7 +303,7 @@ void remover_cliente(Cliente **lista_clientes) {
         else printf("Digite o CPF novamente: ");
     } 
 
-    Cliente *atual = *lista_clientes;
+    Cliente *atual = lista_clientes;
     Cliente *anterior = NULL;
 
     while (atual != NULL && strcmp(atual->CPF, CPF) != 0) {
@@ -309,7 +316,7 @@ void remover_cliente(Cliente **lista_clientes) {
         limparBuffer();        
 
         if (validarCPF(CPF)) {
-            atual = buscar_cliente(*lista_clientes, CPF);
+            atual = buscar_cliente(lista_clientes, CPF);
         } else {
             printf("Digite o CPF novamente: ");
         }
@@ -317,10 +324,10 @@ void remover_cliente(Cliente **lista_clientes) {
 
     if (atual == NULL) {
         printf("Cliente não encontrado.\n");
-        return;
+        return lista_clientes;
     }
     if (anterior == NULL) {
-        *lista_clientes = atual->prox; //Remover o primeiro cliente da lista
+        lista_clientes = atual->prox; //Remover o primeiro cliente da lista
     } else {
         anterior->prox = atual->prox; //Remover cliente do meio ou fim da lista
     }
@@ -332,7 +339,9 @@ void remover_cliente(Cliente **lista_clientes) {
         free(temp);
     }
     free(atual);
+
     printf("Cliente removido com sucesso.\n");
+    return lista_clientes;
 }
 
 

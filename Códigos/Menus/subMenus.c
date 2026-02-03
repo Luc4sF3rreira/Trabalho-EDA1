@@ -96,30 +96,35 @@ Produto* menuProdutos(Produto* listaProdutos, Cliente* listaClientes) {
     return listaProdutos;
 }
 
-ItemCarrinho* menuModoCompra(Cliente* listaClientes, Produto* listaProdutos) {
+void menuModoCompra(Cliente* listaClientes, Produto* listaProdutos) {
     int subOpcao;
-    ItemCarrinho* carrinhoAtual = NULL;
-    
+    Cliente *clienteAtual = NULL;    
     char cpf[12];
+
+    printf("\n==== LOGIN MODO COMPRA ====\n");
     printf("Digite o CPF do cliente para acessar o carrinho: ");
-    while(1) {
-        scanf(" %11[^\n]", cpf);
-        limparBuffer();        
+    while (1) {
+            scanf(" %11[^\n]", cpf);
+            limparBuffer();
 
-        if (validarCPF(cpf)) {
-            Cliente *aux;
-            for (aux = listaClientes; aux != NULL; aux = aux->prox) {
-                if (strcmp(aux->CPF, cpf) == 0) {
-                    printf("CPF ja cadastrado. Tente outro CPF: ");
-                    break;
+            if (strcmp(cpf, "0") == 0) return;
+
+            if (validarCPF(cpf)) {                
+                clienteAtual = buscarCliente(listaClientes, cpf);
+
+                if (clienteAtual != NULL) {
+                    printf("\nBem-vindo(a), %s!\n", clienteAtual->nome_cliente);
+                    break; 
+                } else {
+                    printf("\nErro: CPF nao encontrado. Cadastre-se primeiro.\n");
+                    printf("Tente novamente ou digite '0' para voltar: ");
                 }
-            }
-            if (aux == NULL) break; 
 
-        } else {  
-            printf("Digite o CPF novamente: ");    
+            } else {
+                printf("CPF invalido. Digite novamente (apenas numeros): ");
+            }
         }
-    }
+
     do {
         printf("\n==== Modo Compra ====\n");
         printf("1. Adicionar produto ao carrinho\n");
@@ -133,15 +138,15 @@ ItemCarrinho* menuModoCompra(Cliente* listaClientes, Produto* listaProdutos) {
 
         switch(subOpcao) {
             case 1:
-                carrinhoAtual = adicionarAoCarrinho(carrinhoAtual, listaProdutos);
+                adicionarAoCarrinho(clienteAtual->carrinho, listaProdutos);
                 break;
 
             case 2:
-                mostrarCarrinho(carrinhoAtual);
+                mostrarCarrinho(clienteAtual->carrinho);
                 break;
 
             case 3:
-                carrinhoAtual = retirarDoCarrinho(carrinhoAtual, listaProdutos);
+                retirarDoCarrinho(clienteAtual->carrinho, listaProdutos);
                 break;
 
             case 4:
@@ -152,6 +157,4 @@ ItemCarrinho* menuModoCompra(Cliente* listaClientes, Produto* listaProdutos) {
                 break;
         }
     } while (subOpcao != 4);
-    
-    return carrinhoAtual;
 }

@@ -5,6 +5,6 @@
 
 Cliente* menuClientes(Cliente *listaClientes);
 Produto* menuProdutos(Produto *listaProdutos, Cliente *listaClientes);
-ItemCarrinho* menuModoCompra(Cliente* listaClientes, Produto* listaProdutos);
+void menuModoCompra(Cliente* listaClientes, Produto* listaProdutos);
 
 #endif

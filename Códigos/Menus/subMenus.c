@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "menus.h"
-#include "../FuncoesCliente/funcoesCliente.h"
-#include "../FuncoesProduto/funcoesProduto.h"
-#include "../FuncoesCarrinho/funcoesCarrinho.h"
+#include "subMenus.h"
+#include "../Funcoes_Cliente/funcoesCliente.h"
+#include "../Funcoes_Produto/funcoesProduto.h"
+#include "../Modo_Compra/funcoesCarrinho.h"
 
 Cliente* menuClientes(Cliente* listaClientes) {
     int subOpcao;
@@ -96,6 +96,62 @@ Produto* menuProdutos(Produto* listaProdutos, Cliente* listaClientes) {
     return listaProdutos;
 }
 
+ItemCarrinho* menuModoCompra(Cliente* listaClientes, Produto* listaProdutos) {
+    int subOpcao;
+    ItemCarrinho* carrinhoAtual = NULL;
+    
+    char cpf[12];
+    printf("Digite o CPF do cliente para acessar o carrinho: ");
+    while(1) {
+        scanf(" %11[^\n]", cpf);
+        limparBuffer();        
 
+        if (validarCPF(cpf)) {
+            Cliente *aux;
+            for (aux = listaClientes; aux != NULL; aux = aux->prox) {
+                if (strcmp(aux->CPF, cpf) == 0) {
+                    printf("CPF ja cadastrado. Tente outro CPF: ");
+                    break;
+                }
+            }
+            if (aux == NULL) break; 
 
+        } else {  
+            printf("Digite o CPF novamente: ");    
+        }
+    }
+    do {
+        printf("\n==== Modo Compra ====\n");
+        printf("1. Adicionar produto ao carrinho\n");
+        printf("2. Listar produtos no carrinho\n");
+        printf("3. Retirar produtos do carrinho\n");
+        printf("4. Voltar\n");
 
+        printf("Escolha uma opcao: ");
+        scanf("%d", &subOpcao);
+        limparBuffer();
+
+        switch(subOpcao) {
+            case 1:
+                carrinhoAtual = adicionarAoCarrinho(carrinhoAtual, listaProdutos);
+                break;
+
+            case 2:
+                mostrarCarrinho(carrinhoAtual);
+                break;
+
+            case 3:
+                carrinhoAtual = retirarDoCarrinho(carrinhoAtual, listaProdutos);
+                break;
+
+            case 4:
+                break;
+
+            default:
+                printf("Opcao invalida. Tente novamente.\n");
+                break;
+        }
+    } while (subOpcao != 4);
+    
+    return carrinhoAtual;
+}

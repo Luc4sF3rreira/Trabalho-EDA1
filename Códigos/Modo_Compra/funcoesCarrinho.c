@@ -32,7 +32,7 @@ ItemCarrinho* adicionarAoCarrinho(ItemCarrinho *carrinho, Produto *lista_produto
     }
 
     // cria novo item do carrinho
-    ItemCarrinho *novo = malloc(sizeof(ItemCarrinho));
+    ItemCarrinho *novo = calloc(1, sizeof(ItemCarrinho));
     if (novo == NULL) {
         printf("Erro de memoria.\n");
         return carrinho;
@@ -60,7 +60,7 @@ void mostrarCarrinho(ItemCarrinho *carrinho) {
         return;
     }
 
-    printf("\n--- CARRINHO ---\n");
+    printf("\n==== CARRINHO ====\n");
     while (carrinho != NULL) {
         float subtotal = carrinho->quantidade * carrinho->precoProduto;
         total += subtotal;
@@ -77,7 +77,7 @@ void mostrarCarrinho(ItemCarrinho *carrinho) {
     printf("TOTAL: R$ %.2f\n", total);
 }
 
-ItemCarrinho* removerDoCarrinho(ItemCarrinho *carrinho, Produto *lista_produtos) {
+ItemCarrinho* retirarDoCarrinho(ItemCarrinho *carrinho, Produto *lista_produtos) {
     char codigo[6];
     ItemCarrinho *atual = carrinho;
     ItemCarrinho *anterior = NULL;

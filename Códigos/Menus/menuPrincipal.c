@@ -3,9 +3,9 @@
 #include <string.h>
 
 #include "../estruturas.h"
-#include "../FuncoesCliente/funcoesCliente.h"
-#include "../FuncoesProduto/funcoesProduto.h"
-#include "menus.h"
+#include "../Funcoes_Cliente/funcoesCliente.h"
+#include "../Funcoes_Produto/funcoesProduto.h"
+#include "subMenus.h"
 
 int main() {
     int opcao;
@@ -33,11 +33,11 @@ int main() {
             break;
 
         case 3:
-            printf("\nModo compra.\n");
+            menuModoCompra(clientes, produtos);
             break;
 
         case 4:
-            printf("\nFinalizando o sistema.\n");
+            printf("\nSaindo do sistema.\n");
             exit(0);
 
         default:

@@ -3,8 +3,6 @@
 
 #include "../estruturas.h"
 
-void limparBuffer(); 
-
 //Funções para validação
 int validarCPF(char *CPF);
 int validarNomeCliente(char *nome);

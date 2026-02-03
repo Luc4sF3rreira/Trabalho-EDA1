@@ -20,11 +20,13 @@ typedef struct cliente {
 } Cliente;
 
 typedef struct produto {
-    int codigo;
+    char codigo[6];
     char nome_produto[100];
     float preco;
     int qtd;
     struct produto *prox; //Ponteiro para o próximo produto na lista
 } Produto;
+    
+void limparBuffer(); //Tira o \n que sobrou no buffer após um scanf
 
 #endif

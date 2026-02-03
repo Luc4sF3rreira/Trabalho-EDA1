@@ -313,7 +313,7 @@ Produto* removerProduto(Produto *lista_de_produtos, Cliente *lista_clientes) {
         ItemCarrinho *carrinhoAnterior = NULL; 
 
         while (carrinhoAtual != NULL)        {
-            if (carrinhoAtual->codigoProduto == atoi(codigo)) { //Compara o codigo do carrinho com o codigo do produto a ser removido
+            if (strcmp(carrinhoAtual->codigoProduto, codigo) == 0) { //Compara o codigo do carrinho com o codigo do produto a ser removido
                 ItemCarrinho *temp = carrinhoAtual; //Guarda quem vai ser removido
 
                 if (carrinhoAnterior == NULL) {

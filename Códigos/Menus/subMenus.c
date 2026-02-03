@@ -5,6 +5,7 @@
 #include "menus.h"
 #include "../FuncoesCliente/funcoesCliente.h"
 #include "../FuncoesProduto/funcoesProduto.h"
+#include "../FuncoesCarrinho/funcoesCarrinho.h"
 
 Cliente* menuClientes(Cliente* listaClientes) {
     int subOpcao;
@@ -94,5 +95,7 @@ Produto* menuProdutos(Produto* listaProdutos, Cliente* listaClientes) {
 
     return listaProdutos;
 }
+
+
 
 

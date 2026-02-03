@@ -2,7 +2,7 @@
 #define ESTRUTURAS_H
 
 typedef struct itemCarrinho {
-    int codigoProduto;
+    char codigoProduto[6];
     char nomeProduto[50];
     float precoProduto;
     int quantidade;

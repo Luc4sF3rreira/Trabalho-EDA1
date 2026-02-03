@@ -33,12 +33,15 @@ int main() {
             break;
 
         case 3:
-            printf("\nModo Compra selecionado.\n");
+            printf("\nModo compra.\n");
             break;
 
         case 4:
             printf("\nFinalizando o sistema.\n");
             exit(0);
+
+        default:
+                printf("\nOpcao invalida.\n");
         }
     } while (opcao != 4);
 

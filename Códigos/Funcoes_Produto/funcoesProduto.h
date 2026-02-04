@@ -12,7 +12,7 @@ int validarQuantidade(int qtd);
 //Funções para gerenciamento de produtos
 Produto* cadastrarProduto(Produto *lista_de_produtos);
 Produto* buscarProduto(Produto *lista_de_produtos, char *codigo);
-void listarProdutos(Produto *lista_de_produtos);
+int listarProdutos(Produto *lista_de_produtos);
 void editarProduto(Produto *lista_de_produtos);
 Produto* removerProduto(Produto *lista_de_produtos, Cliente *lista_clientes);
 

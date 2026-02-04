@@ -11,7 +11,8 @@ Cliente* menuClientes(Cliente* listaClientes) {
     int subOpcao;
 
     do {
-        printf("\n--- Clientes ---\n");
+        if (subOpcao != 2) system("cls");
+        printf("\n----- Clientes -----\n");
         printf("1. Cadastrar cliente\n");
         printf("2. Listar clientes\n");
         printf("3. Editar cliente\n");
@@ -24,18 +25,23 @@ Cliente* menuClientes(Cliente* listaClientes) {
 
         switch (subOpcao) {
             case 1:
+                system("cls");
                 listaClientes = cadastrarCliente(listaClientes);
                 break;
 
             case 2:
-                listarClientes(listaClientes);
+                system("cls");
+                if (listarClientes(listaClientes)) printf("\n");
+                else printf("\n");
                 break;
             
             case 3:
+                system("cls");
                 editarCliente(listaClientes);
                 break;
 
             case 4:
+                system("cls");
                 listaClientes = removerCliente(listaClientes);
                 break;
 
@@ -56,7 +62,8 @@ Produto* menuProdutos(Produto* listaProdutos, Cliente* listaClientes) {
     int subOpcao;
 
     do {
-        printf("\n--- Produtos ---\n");
+        if (subOpcao != 2) system("cls");
+        printf("\n----- Produtos -----\n");
         printf("1. Cadastrar produto\n");
         printf("2. Listar produtos\n");
         printf("3. Editar produto\n");
@@ -69,18 +76,23 @@ Produto* menuProdutos(Produto* listaProdutos, Cliente* listaClientes) {
 
         switch (subOpcao) {
             case 1:
+                system("cls");
                 listaProdutos = cadastrarProduto(listaProdutos);
                 break;
 
             case 2:
-                listarProdutos(listaProdutos);
+                system("cls");
+                if (listarProdutos(listaProdutos)) printf("\n");
+                else printf("\n");
                 break;
 
             case 3:
+                system("cls");
                 editarProduto(listaProdutos);
                 break;
 
             case 4:
+                system("cls");
                 listaProdutos = removerProduto(listaProdutos, listaClientes);
                 break;
 
@@ -88,7 +100,8 @@ Produto* menuProdutos(Produto* listaProdutos, Cliente* listaClientes) {
                 break;
 
             default:
-                printf("Opcao invalida. Tente novamente.\n");
+                printf("### Opcao invalida ### \n");
+                printf("Tente novamente.\n\n");
                 break;
         }
     } while (subOpcao != 5);
@@ -101,6 +114,7 @@ void menuModoCompra(Cliente* listaClientes, Produto* listaProdutos) {
     Cliente *clienteAtual = NULL;    
     char cpf[12];
 
+    system("cls");
     printf("\n--- LOGIN MODO COMPRA ---\n");
     printf("Digite o CPF do cliente para acessar o carrinho: ");
     while (1) {
@@ -126,7 +140,8 @@ void menuModoCompra(Cliente* listaClientes, Produto* listaProdutos) {
         }
 
     do {
-        printf("\n--- Modo Compra ---\n");
+        if (subOpcao != 2) system("cls");
+        printf("\n----- Modo Compra -----\n");
         printf("1. Adicionar produto ao carrinho\n");
         printf("2. Listar produtos no carrinho\n");
         printf("3. Retirar produtos do carrinho\n");
@@ -138,14 +153,17 @@ void menuModoCompra(Cliente* listaClientes, Produto* listaProdutos) {
 
         switch(subOpcao) {
             case 1:
+                system("cls");
                 adicionarAoCarrinho(clienteAtual->carrinho, listaProdutos);
                 break;
 
             case 2:
+                system("cls");
                 mostrarCarrinho(clienteAtual->carrinho);
                 break;
 
             case 3:
+                system("cls");
                 retirarDoCarrinho(clienteAtual->carrinho, listaProdutos);
                 break;
 
@@ -153,7 +171,8 @@ void menuModoCompra(Cliente* listaClientes, Produto* listaProdutos) {
                 break;
 
             default:
-                printf("Opcao invalida. Tente novamente.\n");
+                printf("### Opcao invalida ### \n");
+                printf("Tente novamente.\n\n");
                 break;
         }
     } while (subOpcao != 4);

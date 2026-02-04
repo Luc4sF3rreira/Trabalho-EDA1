@@ -209,19 +209,20 @@ Cliente* cadastrarCliente(Cliente *lista_clientes) {
     return novo; //Retorna o novo início da lista
 }
 
-void listarClientes (Cliente *lista_clientes) {
+int listarClientes (Cliente *lista_clientes) {
     if (lista_clientes == NULL) {
-        printf("Nenhum cliente cadastrado.\n");
-        return;
+        printf("Nenhum cliente cadastrado.");
+        return 0;
     }
-    printf("\n--- Lista de Clientes ---\n");
+    printf("\n%80s\n", "+++++++++++++++++++++++++++++++++++++++++++++++++ Lista de Clientes +++++++++++++++++++++++++++++++++++++++++++++++++");
     while (lista_clientes != NULL) {
         printf("CPF: %s || Nome: %s || Email: %s || Telefone: %s || Data de Nascimento: %s\n",
                lista_clientes->CPF, lista_clientes->nome_cliente, lista_clientes->email, 
                lista_clientes->telefone, lista_clientes->data_nascimento);
 
         lista_clientes = lista_clientes->prox;
-    } 
+    }
+    return 1;
 }
 
 Cliente* buscarCliente(Cliente *lista_clientes, char *CPF) {
@@ -276,8 +277,8 @@ void editarCliente (Cliente *lista_clientes) {
 
         switch (opcao) {
         case 1:
-            printf("CPF atual: %s\n", cliente->CPF);
-            printf("\nDigite o novo CPF: ");
+            printf("\nCPF atual: %s\n", cliente->CPF);
+            printf("Digite o novo CPF: ");
             char novoCPF[12];
 
             while (1) {
@@ -321,8 +322,8 @@ void editarCliente (Cliente *lista_clientes) {
             break;
 
         case 3:
-            printf("Email atual: %s\n", cliente->email);
-            printf("\nDigite o novo email: ");
+            printf("\nEmail atual: %s\n", cliente->email);
+            printf("Digite o novo email: ");
             char novoEmail[100];
 
             while (1) {
@@ -351,8 +352,8 @@ void editarCliente (Cliente *lista_clientes) {
             break;
 
         case 4:
-            printf("Telefone atual: %s\n", cliente->telefone);
-            printf("\nDigite novo telefone (XX XXXXXXXXX): ");
+            printf("\nTelefone atual: %s\n", cliente->telefone);
+            printf("Digite novo telefone (XX XXXXXXXXX): ");
             while (1) {
                 scanf(" %12[^\n]", cliente->telefone);
                 limparBuffer();
@@ -379,8 +380,8 @@ void editarCliente (Cliente *lista_clientes) {
             break;
 
         case 5:
-            printf("Data de nascimento atual: %s\n", cliente->data_nascimento);
-            printf("\nDigite nova data de nascimento (DD/MM/AAAA): ");
+            printf("\nData de nascimento atual: %s\n", cliente->data_nascimento);
+            printf("Digite nova data de nascimento (DD/MM/AAAA): ");
             while (1) {
                 scanf(" %11[^\n]", cliente->data_nascimento);
                 limparBuffer();
@@ -394,7 +395,7 @@ void editarCliente (Cliente *lista_clientes) {
             break;
 
         default:
-            printf("Opcao invalida, tente novamente.\n");
+            printf("\nOpcao invalida, tente novamente.\n");
             break;
         }
 

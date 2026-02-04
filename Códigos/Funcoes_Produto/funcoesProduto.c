@@ -130,12 +130,12 @@ Produto* buscarProduto(Produto *lista_de_produtos, char *codigo) {
     return NULL;
 } 
 
-void listarProdutos(Produto *lista_de_produtos) {
+int listarProdutos(Produto *lista_de_produtos) {
     Produto *aux = lista_de_produtos;
 
     if (aux == NULL) {
         printf("\nNenhum produto cadastrado.\n");
-        return;
+        return 0;
     }
     printf("\n--- Lista de Produtos ---\n");
     while (aux != NULL) {
@@ -143,6 +143,7 @@ void listarProdutos(Produto *lista_de_produtos) {
                aux->codigo, aux->nome_produto, aux->preco, aux->qtd);
         aux = aux->prox;
     }
+    return 1;
 }
 
 void editarProduto (Produto *lista_de_produtos) {

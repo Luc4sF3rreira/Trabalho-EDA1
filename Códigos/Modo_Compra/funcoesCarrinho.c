@@ -3,53 +3,65 @@
 #include <string.h>
 #include <ctype.h>
 
+#include "../estruturas.h"
+#include "../Funcoes_Produto/funcoesProduto.h"
 #include "funcoesCarrinho.h"
 
 ItemCarrinho* adicionarAoCarrinho(ItemCarrinho *carrinho, Produto *lista_produtos) {
     char codigo[6];
     int qtd;
+    Produto *produto = NULL;
 
-    listarProdutos(lista_produtos);
+    if (listarProdutos(lista_produtos)) {
+        printf("\nDigite o codigo do produto para adicionar ao carrinho: ");
+    } else {
+        printf("\n");
+    } 
 
-    printf("\nDigite o codigo do produto: ");
-    scanf(" %5[^\n]", codigo);
-    limparBuffer();
+    while(produto == NULL) {
+        scanf(" %5[^\n]", codigo);
+        limparBuffer();        
 
-    Produto *produto = buscarProduto(lista_produtos, codigo);
+        if (validarCodigo(codigo, lista_produtos)) {
+            produto = buscarProduto(lista_produtos, codigo);
+            if (produto == NULL) {
+                printf("Produto nao encontrado. Informe o codigo novamente: ");
+            }
+        } else {
+            printf("Digite o codigo novamente: "); 
+    } 
+}
+    printf("Digite a quantidade desejada: ");
+    while(1) {
+        scanf(" %d", &qtd);
+        limparBuffer();
 
-    if (produto == NULL) {
-        printf("Produto nao encontrado.\n");
-        return carrinho;
+        if (validarQuantidade(qtd)) break;
+        else printf("Digite a quantidade novamente: ");
+
+        if (qtd <= 0 || qtd > produto->qtd) {      
+            printf("Quantidade invalida.\n");
+            return carrinho;
+        }
+
     }
 
-    printf("Quantidade desejada: ");
-    scanf("%d", &qtd);
-    limparBuffer();
-
-    if (qtd <= 0 || qtd > produto->qtd) {
-        printf("Quantidade invalida.\n");
-        return carrinho;
-    }
-
-    // cria novo item do carrinho
+    //cria novo item do carrinho
     ItemCarrinho *novo = calloc(1, sizeof(ItemCarrinho));
-    if (novo == NULL) {
-        printf("Erro de memoria.\n");
-        return carrinho;
-    }
 
     strcpy(novo->nomeProduto, produto->nome_produto);
     strcpy(novo->codigoProduto, produto->codigo);
     novo->precoProduto = produto->preco;
     novo->quantidade = qtd;
     novo->prox = carrinho;
+    carrinho = novo;
 
     // atualiza estoque
     produto->qtd -= qtd;
 
     printf("Produto adicionado ao carrinho!\n");
 
-    return novo; // novo vira o início da lista
+    return novo; //novo vira o início da lista
 }
 
 void mostrarCarrinho(ItemCarrinho *carrinho) {
@@ -60,7 +72,7 @@ void mostrarCarrinho(ItemCarrinho *carrinho) {
         return;
     }
 
-    printf("\n==== CARRINHO ====\n");
+    printf("\n====== CARRINHO ======\n");
     while (carrinho != NULL) {
         float subtotal = carrinho->quantidade * carrinho->precoProduto;
         total += subtotal;

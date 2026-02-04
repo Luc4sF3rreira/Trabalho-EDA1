@@ -13,7 +13,8 @@ int main() {
     Produto* produtos = NULL;
 
     do {
-        printf("\n==== Sistema de Gestao ====\n");
+        system("cls");        
+        printf("\n======= Sistema de Gestao =======\n");
         printf("1. Gerenciamento de clientes\n");
         printf("2. Gerenciamento de produtos\n");
         printf("3. Modo Compra\n");

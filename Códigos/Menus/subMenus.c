@@ -11,7 +11,7 @@ Cliente* menuClientes(Cliente* listaClientes) {
     int subOpcao;
 
     do {
-        printf("\n==== Clientes ====\n");
+        printf("\n--- Clientes ---\n");
         printf("1. Cadastrar cliente\n");
         printf("2. Listar clientes\n");
         printf("3. Editar cliente\n");
@@ -56,7 +56,7 @@ Produto* menuProdutos(Produto* listaProdutos, Cliente* listaClientes) {
     int subOpcao;
 
     do {
-        printf("\n==== Produtos ====\n");
+        printf("\n--- Produtos ---\n");
         printf("1. Cadastrar produto\n");
         printf("2. Listar produtos\n");
         printf("3. Editar produto\n");
@@ -101,7 +101,7 @@ void menuModoCompra(Cliente* listaClientes, Produto* listaProdutos) {
     Cliente *clienteAtual = NULL;    
     char cpf[12];
 
-    printf("\n==== LOGIN MODO COMPRA ====\n");
+    printf("\n--- LOGIN MODO COMPRA ---\n");
     printf("Digite o CPF do cliente para acessar o carrinho: ");
     while (1) {
             scanf(" %11[^\n]", cpf);
@@ -126,7 +126,7 @@ void menuModoCompra(Cliente* listaClientes, Produto* listaProdutos) {
         }
 
     do {
-        printf("\n==== Modo Compra ====\n");
+        printf("\n--- Modo Compra ---\n");
         printf("1. Adicionar produto ao carrinho\n");
         printf("2. Listar produtos no carrinho\n");
         printf("3. Retirar produtos do carrinho\n");

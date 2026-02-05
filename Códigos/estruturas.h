@@ -6,7 +6,7 @@ typedef struct itemCarrinho {
     char nomeProduto[50];
     float precoProduto;
     int quantidade;
-    struct itemCarrinho *prox; //Ponteiro para o próximo item do carrinho
+    struct itemCarrinho *prox; 
 } ItemCarrinho;
 
 typedef struct cliente {
@@ -15,8 +15,8 @@ typedef struct cliente {
     char email[100];
     char telefone[15];
     char data_nascimento[12];
-    ItemCarrinho *carrinho; //Ponteiro para o carrinho de compras deste cliente
-    struct cliente *prox; //Ponteiro para o próximo cliente na lista
+    ItemCarrinho *carrinho; 
+    struct cliente *prox; 
 } Cliente;
 
 typedef struct produto {
@@ -24,9 +24,9 @@ typedef struct produto {
     char nome_produto[100];
     float preco;
     int qtd;
-    struct produto *prox; //Ponteiro para o próximo produto na lista
+    struct produto *prox; 
 } Produto;
     
-void limparBuffer(); //Tira o \n que sobrou no buffer após um scanf
+void limparBuffer(); 
 
 #endif

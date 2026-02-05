@@ -61,7 +61,7 @@ ItemCarrinho* adicionarAoCarrinho(ItemCarrinho *carrinho, Produto *lista_produto
         auxiliar = auxiliar->prox;
     }
 
-    //cria novo item do carrinho
+    
     ItemCarrinho *novo = calloc(1, sizeof(ItemCarrinho));
 
     strcpy(novo->nomeProduto, produto->nome_produto);
@@ -71,17 +71,18 @@ ItemCarrinho* adicionarAoCarrinho(ItemCarrinho *carrinho, Produto *lista_produto
     novo->prox = carrinho;
     carrinho = novo;
 
-    // atualiza estoque
+    
     produto->qtd -= qtd;
 
-    printf("Produto adicionado ao carrinho!\n");
+    printf("\n<Produto adicionado ao carrinho!\n");
+    sleep(2);
 
-    return novo; //novo vira o início da lista
+    return novo; 
 }
 
 ItemCarrinho* buscarItem(char *codigo, ItemCarrinho *carrinho) {
     while (carrinho != NULL) {
-        if (strcmp(carrinho->codigoProduto, codigo) == 0) return carrinho; //Retorna o produto encontrado
+        if (strcmp(carrinho->codigoProduto, codigo) == 0) return carrinho; 
         carrinho = carrinho->prox;
     }
     return NULL;
@@ -95,7 +96,7 @@ int mostrarCarrinho(ItemCarrinho *carrinho) {
         return 0;
     }
 
-    printf("\n====== CARRINHO ======\n");
+    printf("====== CARRINHO ======\n");
     while (carrinho != NULL) {
         float subtotal = carrinho->quantidade * carrinho->precoProduto;
         total += subtotal;
@@ -110,7 +111,9 @@ int mostrarCarrinho(ItemCarrinho *carrinho) {
         carrinho = carrinho->prox;
     }
 
-    printf("TOTAL: R$ %.2f\n", total);
+    printf("\n==== TOTAL: R$ %.2f ====\n", total);
+    printf("\n\n");
+
     return 1;
 }
 
@@ -182,7 +185,8 @@ ItemCarrinho* retirarDoCarrinho(ItemCarrinho *carrinho, Produto *lista_produtos)
         free(atual);
     }
 
-    printf("Remoção concluída\n");
+    printf("\n<Remoção concluída>\n");
+    sleep(2);
     
     return carrinho;
 

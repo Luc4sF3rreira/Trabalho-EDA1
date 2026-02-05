@@ -12,12 +12,12 @@ Cliente* menuClientes(Cliente* listaClientes) {
 
     do {
         if (subOpcao != 2) system("cls");
-        printf("\n----- Clientes -----\n");
+        printf("----- Clientes -----\n");
         printf("1. Cadastrar cliente\n");
         printf("2. Listar clientes\n");
         printf("3. Editar cliente\n");
         printf("4. Remover cliente\n");
-        printf("5. Voltar\n");
+        printf("5. Voltar\n\n");
 
         printf("Escolha uma opcao: ");
         scanf("%d", &subOpcao);
@@ -31,7 +31,7 @@ Cliente* menuClientes(Cliente* listaClientes) {
 
             case 2:
                 system("cls");
-                if (listarClientes(listaClientes)) printf("\n");
+                if (listarClientes(listaClientes));
                 else printf("\n");
                 break;
             
@@ -63,12 +63,12 @@ Produto* menuProdutos(Produto* listaProdutos, Cliente* listaClientes) {
 
     do {
         if (subOpcao != 2) system("cls");
-        printf("\n----- Produtos -----\n");
+        printf("----- Produtos -----\n");
         printf("1. Cadastrar produto\n");
         printf("2. Listar produtos\n");
         printf("3. Editar produto\n");
         printf("4. Remover produto\n");
-        printf("5. Voltar\n");
+        printf("5. Voltar\n\n");
 
         printf("Escolha uma opcao: ");
         scanf("%d", &subOpcao);
@@ -115,7 +115,7 @@ void menuModoCompra(Cliente* listaClientes, Produto* listaProdutos) {
     char cpf[12];
 
     system("cls");
-    printf("\n--- LOGIN MODO COMPRA ---\n");
+    printf("--- LOGIN MODO COMPRA ---\n");
     printf("Digite o CPF do cliente para acessar o carrinho: ");
     while (1) {
             scanf(" %11[^\n]", cpf);
@@ -141,11 +141,11 @@ void menuModoCompra(Cliente* listaClientes, Produto* listaProdutos) {
 
     do {
         if (subOpcao != 2) system("cls");
-        printf("\n----- Modo Compra -----\n");
+        printf("----- Modo Compra -----\n");
         printf("1. Adicionar produto ao carrinho\n");
         printf("2. Listar produtos no carrinho\n");
         printf("3. Retirar produtos do carrinho\n");
-        printf("4. Voltar\n");
+        printf("4. Voltar\n\n");
 
         printf("Escolha uma opcao: ");
         scanf("%d", &subOpcao);

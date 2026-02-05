@@ -154,7 +154,7 @@ void menuModoCompra(Cliente* listaClientes, Produto* listaProdutos) {
         switch(subOpcao) {
             case 1:
                 system("cls");
-                adicionarAoCarrinho(clienteAtual->carrinho, listaProdutos);
+                clienteAtual->carrinho = adicionarAoCarrinho(clienteAtual->carrinho, listaProdutos);
                 break;
 
             case 2:
@@ -164,7 +164,7 @@ void menuModoCompra(Cliente* listaClientes, Produto* listaProdutos) {
 
             case 3:
                 system("cls");
-                retirarDoCarrinho(clienteAtual->carrinho, listaProdutos);
+                clienteAtual->carrinho = retirarDoCarrinho(clienteAtual->carrinho, listaProdutos);
                 break;
 
             case 4:

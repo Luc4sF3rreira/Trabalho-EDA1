@@ -7,7 +7,7 @@
 
 
 //Funções para validação 
-int validarCodigo(char *codigo, Produto *lista_de_produtos) {
+int validarCodigo(char *codigo) {
     if (strlen(codigo) != 5) {
         printf("\nCodigo de identificacao deve conter exatamente 5 digitos.\n");
         return 0; 
@@ -61,7 +61,7 @@ Produto* cadastrarProduto(Produto *lista_de_produtos) {
         scanf(" %5[^\n]", novo->codigo);
         limparBuffer();        
 
-        if (validarCodigo(novo->codigo, lista_de_produtos)) {
+        if (validarCodigo(novo->codigo)) {
             Produto *aux;
             for (aux = lista_de_produtos; aux != NULL; aux = aux->prox) {
                 if (strcmp(aux->codigo, novo->codigo) == 0) {
@@ -139,8 +139,10 @@ int listarProdutos(Produto *lista_de_produtos) {
     }
     printf("\n--- Lista de Produtos ---\n");
     while (aux != NULL) {
-        printf("Codigo: %s || Nome: %s || Preco: R$ %.2f || Quantidade: %d\n",
-               aux->codigo, aux->nome_produto, aux->preco, aux->qtd);
+        if (aux->qtd > 0) {
+             printf("Codigo: %s || Nome: %s || Preco: R$ %.2f || Quantidade: %d\n",
+            aux->codigo, aux->nome_produto, aux->preco, aux->qtd);
+        }
         aux = aux->prox;
     }
     return 1;
@@ -155,7 +157,7 @@ void editarProduto (Produto *lista_de_produtos) {
         scanf(" %5[^\n]", codigo);
         limparBuffer();        
 
-        if (validarCodigo(codigo, lista_de_produtos)) {
+        if (validarCodigo(codigo)) {
             produto = buscarProduto(lista_de_produtos, codigo);
             if (produto == NULL) {
                 printf("Produto nao encontrado. Informe o codigo novamente: ");
@@ -171,7 +173,7 @@ void editarProduto (Produto *lista_de_produtos) {
         scanf(" %5[^\n]", codigo);
         limparBuffer();        
 
-        if (validarCodigo(codigo, lista_de_produtos)) {
+        if (validarCodigo(codigo)) {
             produto = buscarProduto(lista_de_produtos, codigo);
         } else {
             printf("Digite o codigo novamente: ");
@@ -197,7 +199,7 @@ void editarProduto (Produto *lista_de_produtos) {
                 scanf(" %5[^\n]", novoCodigo);
                 limparBuffer();
 
-                if (validarCodigo(novoCodigo, lista_de_produtos)) {
+                if (validarCodigo(novoCodigo)) {
                     Produto *aux;
                     int duplicado = 0; 
                     for (aux = lista_de_produtos; aux != NULL; aux = aux->prox) {
@@ -298,7 +300,7 @@ Produto* removerProduto(Produto *lista_de_produtos, Cliente *lista_clientes) {
         scanf(" %5[^\n]", codigo);
         limparBuffer();
 
-        if (validarCodigo(codigo, lista_de_produtos)) {
+        if (validarCodigo(codigo)) {
             produtoRemover = buscarProduto(lista_de_produtos, codigo);
             if (produtoRemover == NULL) {
                 printf("Produto nao encontrado. Informe o codigo novamente: ");

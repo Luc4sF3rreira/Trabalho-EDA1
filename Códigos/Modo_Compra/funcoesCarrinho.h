@@ -7,7 +7,8 @@
 
 
 ItemCarrinho* adicionarAoCarrinho(ItemCarrinho *carrinho, Produto *lista_produtos);
-void mostrarCarrinho(ItemCarrinho *carrinho);
+ItemCarrinho* buscarItem(char *codigo, ItemCarrinho *carrinho);
+int mostrarCarrinho(ItemCarrinho *carrinho);
 ItemCarrinho* retirarDoCarrinho(ItemCarrinho *carrinho, Produto *lista_produtos);
 
 #endif

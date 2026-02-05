@@ -4,7 +4,7 @@
 #include "../estruturas.h"
 
 //Funções para validação
-int validarCodigo(char *codigo, Produto *lista_de_produtos);
+int validarCodigo(char *codigo);
 int validarNomeProduto(char *nome_produto);
 int validarPreco(float preco);
 int validarQuantidade(int qtd);
